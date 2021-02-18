@@ -11,8 +11,17 @@ app.get('/', function (req, res) {
     res.sendFile(process.cwd() + '/views/index.html');
 });
 
-
-
+/*********** <JANNDEN> *************/
+var multer  = require('multer')
+var upload = multer({ dest: 'uploads/' })
+app.post("/api/fileanalyse", upload.single("upfile"), function (req, res) {
+  res.json({
+    name: req.file.originalname,
+    type: req.file.mimetype,
+    size: req.file.size
+  })
+})
+/*********** </JANNDEN> *************/
 
 const port = process.env.PORT || 3000;
 app.listen(port, function () {
